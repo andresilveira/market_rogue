@@ -1,5 +1,6 @@
 require_relative 'spec_helper'
 
+require_relative '../lib/market_rogue'
 require_relative '../lib/authenticator.rb'
 
 require 'mechanize'
@@ -21,7 +22,7 @@ describe Authenticator do
 
   describe '.authenticate!' do
     before do
-      @page_to_authenticate = { page: Mechanize.new.get(ENV['T_URL']) }
+      @page_to_authenticate = { page: Mechanize.new.get(MarketRogue::TalonRO::WHOSELL_URL) }
       @valid_user = { username: ENV['T_USERNAME'], password: ENV['T_PASSWORD'] }
       @invalid_user = { username: 'lololololo', password: 'lolololololo' }
     end
