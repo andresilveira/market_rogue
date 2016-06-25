@@ -55,6 +55,24 @@ describe ResultsParser do
                   <td>Chancesmith</td>
                   <td><a>75,109</a></td>
                 </tr>
+                <tr>
+      					<td>
+                  +4<a>Artemis Bow[3]</a>
+                </td>
+      					<td>
+      						<a>Turtle General Card</a>
+                  <br>
+                  <a>Turtle General Card</a>
+                  <br>
+                  <a>Turtle General Card</a>
+                  <br>
+                </td>
+      					<td>280.000.000</td>
+      					<td>1</td>
+      					<td>Pro Gears Auction House</td>
+      					<td>Flavyo</td>
+      					<td><a>175,145</a></td>
+      				</tr>
               </tbody>
             </table>
           </div>
@@ -62,18 +80,33 @@ describe ResultsParser do
         page = Nokogiri::HTML body
         results = ResultsParser.new.read(page)
         results.must_equal [
-          Hash[name: 'jellopy',
-               cards: '',
+          Hash[item_name: 'jellopy',
+               refinement: 0,
+               slots: 0,
+               cards: [],
                price: 480,
                amount: 1420,
-               title: 'ELU SQI ETC',
-               vendor: 'chinitaa'],
-          Hash[name: 'large jellopy',
-               cards: '',
+               shop_title: 'ELU SQI ETC',
+               vendor: 'chinitaa',
+               coords: '147,72'],
+          Hash[item_name: 'large jellopy',
+               refinement: 0,
+               slots: 0,
+               cards: [],
                price: 3_000,
                amount: 8,
-               title: 'ELU IRON SQI ETC',
-               vendor: 'Chancesmith']
+               shop_title: 'ELU IRON SQI ETC',
+               vendor: 'Chancesmith',
+               coords: '75,109'],
+           Hash[item_name: 'artemis bow',
+                refinement: 4,
+                slots: 3,
+                cards: ['turtle general card','turtle general card','turtle general card'],
+                price: 280000000,
+                amount: 1,
+                shop_title: 'Pro Gears Auction House',
+                vendor: 'Flavyo',
+                coords: '175,145']
         ]
       end
     end
