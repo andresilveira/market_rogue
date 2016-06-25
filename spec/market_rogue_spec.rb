@@ -3,7 +3,7 @@ require_relative './spec_helper'
 require_relative '../lib/market_rogue'
 
 describe MarketRogue do
-  let(:subject) { MarketRogue::TalonRO::Base }
+  let(:subject) { MarketRogue::TalonRO }
 
   it 'must have a username' do
     proc { subject.new password: 'pass' }.must_raise ArgumentError

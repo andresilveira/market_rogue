@@ -1,8 +1,6 @@
 # Class responsible for performing a search for a given item in the market website
 class Querier
   def initialize(page: :page_not_set)
-    fail UnknownPage unless page.uri.path == URI.parse(ENV['T_URL']).path
-
     @page = page
   end
 
@@ -11,6 +9,7 @@ class Querier
     fail ArgumentError if item_name.empty?
 
     @page = @page.form_with(id: search_form_id) do |whosell|
+      fail UnknownPage if whosell.nil?
       whosell.field_with(name: item_field_name).value = item_name
     end.submit
   end
