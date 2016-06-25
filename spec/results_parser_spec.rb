@@ -63,17 +63,23 @@ describe ResultsParser do
         results = ResultsParser.new.read(page)
         results.must_equal [
           Hash[name: 'jellopy',
-               cards: '',
+               refinement: 0,
+               slots: 0,
+               cards: [],
                price: 480,
                amount: 1420,
                title: 'ELU SQI ETC',
-               vendor: 'chinitaa'],
+               vendor: 'chinitaa',
+               coords: '147,72'],
           Hash[name: 'large jellopy',
-               cards: '',
+               refinement: 0,
+               slots: 0,
+               cards: [],
                price: 3_000,
                amount: 8,
                title: 'ELU IRON SQI ETC',
-               vendor: 'Chancesmith']
+               vendor: 'Chancesmith',
+               coords: '75,109']
         ]
       end
     end
