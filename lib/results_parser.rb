@@ -1,7 +1,7 @@
 # Class responsible for parsing and structuring the results of a search in the market website
 class ResultsParser
 
-  REFINEMENT_NAME_SLOTS_REGEX = /\+*(?<refinement>\d*)(?<item_name>[\s\w]+)\[*(?<slots>\d*)\]*/
+  REFINEMENT_NAME_SLOTS_REGEX = /\+*(?<refinement>\d*)(?<item_name>[\s\w\']+)\[*(?<slots>\d*)\]*/
 
   def read(page)
     scrap_entries(page).map do |entry|

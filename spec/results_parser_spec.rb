@@ -47,7 +47,7 @@ describe ResultsParser do
                   <td><strong>Coords</strong></td>
                 </tr>
                 <tr>
-                  <td><a>Large Jellopy </a></td>
+                  <td><a>Roguemaster's Bow</a></td>
                   <td> </td>
                   <td>3.000</td>
                   <td>8</td>
@@ -89,7 +89,7 @@ describe ResultsParser do
                shop_title: 'ELU SQI ETC',
                vendor: 'chinitaa',
                coords: '147,72'],
-          Hash[item_name: 'large jellopy',
+          Hash[item_name: "roguemaster's bow",
                refinement: 0,
                slots: 0,
                cards: [],
