@@ -133,3 +133,61 @@ describe ResultsParser do
     end
   end
 end
+
+describe BuyingResultsParser do
+  describe '#read' do
+    describe 'when the page has results' do
+      it 'return an of hashes for each result' do
+        body = <<-HTML
+          <div id="content_wrap">
+            <h3>Search Results for "unknown item"</h3>
+            <table class="table_data table_narrow">
+              <tbody>
+                <tr class="table_row_top">
+                  <td colspan="7"><strong>Prontera</strong></td>
+                </tr>
+                <tr class="table_row_subtop">
+                  <td><strong>Name</strong></td>
+                  <td><strong>Price</strong></td>
+                  <td><strong>Amt.</strong></td>
+                  <td><strong>Title</strong></td>
+                  <td><strong>Vendor</strong></td>
+                  <td><strong>Coords</strong></td>
+                </tr>
+               <tr>
+                  <td><a class="imgtooltip" target="blank_">Jellopy </a></td>
+                  <td>480</td>
+                  <td>1420</td>
+                  <td>ELU SQI ETC</td>
+                  <td>chinitaa</td>
+                  <td><a>147,72</a></td>
+               </tr>
+              </tbody>
+            </table>
+          </div>
+        HTML
+        page = Nokogiri::HTML body
+        results = BuyingResultsParser.new.read(page)
+        results.must_equal [
+          { 
+            item_name: 'jellopy',
+            refinement: 0,
+            slots: 0,
+            price: 480,
+            amount: 1420,
+            shop_title: 'ELU SQI ETC',
+            vendor: 'chinitaa',
+            coords: '147,72'
+          }
+        ]
+      end
+    end
+
+    describe 'when the page is different then expected' do
+      it 'raises UnknownPageException' do
+        page = Nokogiri::HTML ''
+        proc { ResultsParser.new.read(page) }.must_raise ResultsParser::UnknownPageException
+      end
+    end
+  end
+end

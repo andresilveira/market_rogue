@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name               = 'market_rogue'
-  s.version            = '0.0.1'
+  s.version            = '0.1.0'
 
   s.authors = ['André Herculano']
   s.date = '2016-06-22'
@@ -22,5 +22,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake'         ,'~> 11'
   s.add_development_dependency 'bundler'      ,'~> 1'
   s.add_development_dependency 'minitest'     ,'~> 5'
-  s.add_development_dependency 'webmock'      ,'~> 2'
 end
