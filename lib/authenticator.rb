@@ -1,40 +1,43 @@
+require 'mechanize'
+
 # Class responsible to authenticate in the market website.
 class Authenticator
-  def initialize(username:, password:, page:)
-    fail ArgumentError if username.to_s.empty? || password.to_s.empty? || page.nil?
+  
+  URL = 'https://panel.talonro.com/'
+  LOGIN_ACTION = { action: /login/ }
+  USER_FIELD_NAME = { name: 'auth' }
+  PASSWORD_FIELD_NAME = { name: 'password' }
+
+  attr_reader :agent
+
+  def initialize(username:, password:)
+    assert_credentials_given(username, password)
 
     @username = username
     @password = password
-    @page = page
+    @agent = Mechanize.new.get(URL)
   end
 
   def authenticate!
     # TODO: improve error message when the form is not found
-    @page = @page.form_with(id: authentication_form_id) do |form|
-      form.field_with(name: username_field_name).value = @username
-      form.field_with(name: password_field_name).value = @password
+    @agent = agent.form_with(LOGIN_ACTION) do |f|
+      f.field_with(USER_FIELD_NAME).value = @username
+      f.field_with(PASSWORD_FIELD_NAME).value = @password
     end.submit
 
     assert_authenticated
+    agent
   end
 
   private
 
+  def assert_credentials_given(username, password)
+    fail ArgumentError.new('Username is missing.') if username.to_s.empty?
+    fail ArgumentError.new('Password is missing.') if password.to_s.empty?
+  end
+
   def assert_authenticated
-    fail InvalidUserException if @page.uri.path.include? 'login'
-    @page
-  end
-
-  def authentication_form_id
-    'validation'
-  end
-
-  def username_field_name
-    'auth'
-  end
-
-  def password_field_name
-    'password'
+    fail InvalidUserException if @agent.uri.path.include? 'login'
   end
 
   class InvalidUserException < Exception
